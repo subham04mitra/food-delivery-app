@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 
-mongoose.connect(process.env.DB_URI, { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect("mongodb://127.0.0.1:27017/project", { useUnifiedTopology: true, useNewUrlParser: true });
 
 var db = mongoose.connection;
 

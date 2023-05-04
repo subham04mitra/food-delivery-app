@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { v4: uuidv4 } = require("uuid");
 const stripe = require("stripe")(
-  process.env.SECRET_KEY
+  'sk_test_51N1tsZSDsFwrZukg18jswjTzFynBURiQwR1Jm6mSI4cYaWLyt6kEGI2Z4RmrmR8XC6esn32elaJHDXGDLV68vSA300oweR5KhS'
 );
 const Order = require("../models/orderModel");
 router.post("/placeorder", async (req, res) => {
@@ -12,22 +12,29 @@ router.post("/placeorder", async (req, res) => {
     const customer = await stripe.customers.create({
       email: token.email,
       source: token.id,
+      name: 'Jenny Rosen',
+  address: {
+    line1: '510 Townsend St',
+    postal_code: '98140',
+    city: 'San Francisco',
+    state: 'CA',
+    country: 'US',
+  },
     });
 
-    const payment = await stripe.charges.create(
+    const payment = await stripe.paymentIntents.create(
       {
         amount: subtotal * 100,
         currency: "inr",
         customer: customer.id,
         receipt_email: token.email,
-      },
-      {
-        idempotencyKey: uuidv4(),
+        
+  description: 'Software development services',
       }
     );
-
+// console.log(".........................",payment);
     if (payment) {
-      const neworder = new Order({
+      const neworder =new Order({
         name: currentUser.name,
         email: currentUser.email,
         userid: currentUser._id,
@@ -39,10 +46,10 @@ router.post("/placeorder", async (req, res) => {
           country: token.card.address_country,
           pincode: token.card.address_zip,
         },
-        transactionId: payment.source.id,
+        // transactionId: payment.source.id,
       });
+         neworder.save();
 
-      neworder.save();
 
       res.send("Order placed successfully");
     } else {

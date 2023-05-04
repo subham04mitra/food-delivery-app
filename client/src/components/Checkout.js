@@ -27,7 +27,7 @@ export default function Checkout({ subtotal }) {
           amount={subtotal * 100}
           shippingAddress
           token={tokenHander}
-          stripeKey=process.env.PUBLISH_KEY
+          stripeKey="pk_test_51N1tsZSDsFwrZukguRFxYAluYu7oSFMz5R2yi63Y4fyXEEAEFN006H614ZdTVN6CvbYfyCthr6p9wz4Sk2WbC4iE008Xj8Ghqa"
           currency="INR"
         >
           <button className="btn">Pay Now</button>
