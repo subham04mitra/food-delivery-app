@@ -12,7 +12,6 @@ router.get("/getallpizzas", async(req, res) => {
     }
 
 });
-
 router.post("/addpizza", async(req, res) => {
 
     const pizza = req.body.pizza

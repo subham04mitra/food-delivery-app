@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 mongoose.connect("mongodb://127.0.0.1:27017/project", { useUnifiedTopology: true, useNewUrlParser: true });
 
 var db = mongoose.connection;
@@ -14,3 +13,7 @@ db.on("error", () => {
 });
 
 module.exports = mongoose;
+
+
+
+
